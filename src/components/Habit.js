@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export default function Habit() {
+export default function Habit({h}) {
     return (
         <HabitBox>
             <DescriptionHabit>

@@ -4,6 +4,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Home from "./Home";
 import SubscribePage from './SubscribePage';
 import TodaysPage from './TodaysPage';
+import HabitsPage from './HabitsPage';
 import userContext from '../contexts/UserContext'
 
 export default function App() {
@@ -21,6 +22,9 @@ export default function App() {
         </Route>
         <Route path='/hoje' exact>
           <TodaysPage />
+        </Route>
+        <Route path='/habitos'>
+          <HabitsPage />
         </Route>
       </Switch>
       </BrowserRouter>

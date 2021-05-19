@@ -1,40 +1,41 @@
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../contexts/UserContext";
 import axios from 'axios';
-import { useEffect, useContext } from "react";
+import Header from './Header'
 import styled from "styled-components";
-import UserContext from '../contexts/UserContext';
-import '../styles/index.css';
 import Habit from './Habit';
-import dayjs from "dayjs";
-import localeData from "dayjs/plugin/localeData";
-import { useHistory } from 'react-router';
-import Header from './Header';
 
-export default function TodaysPage() {
-    let history = useHistory();
+
+export default function HabitsPage() {
+
     const {user} = useContext(UserContext);
-    console.log(user)
+    const [habits, setHabits] = useState([])
 
-    useEffect(() => {
+    useEffect( () => {
         const config = {
             headers: {
                 Authorization: `Bearer ${user.token}`
             }
         }
-        const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config);
-        promise.then(r => console.log(r));
-    } ,[])
+        const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);
+        promise.then(r => setHabits(r.data));
+    }, [] )
+
     return(
         <>
             <Header />
 
             <Content>
-                <h1> {dayjs().day()}, {dayjs().date()}</h1>
-                <p>Nenhum hábito concluído ainda</p>
-                {/* <Habit /> */}
+                <h1> Meus hábitos</h1>
+                <Button>+</Button>
+                {
+                    habits.map( h => <Habit h={h} />)
+                }
+                <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
             </Content>
             <Menu>
-                <p onClick={() => {history.push('/habitos')}}>Hábitos</p>
-                <p onClick={() => {history.push('/historico')}}>Histórico</p>
+                <p >Hábitos</p>
+                <p >Histórico</p>
             </Menu>
         </>
     )
@@ -47,6 +48,7 @@ const Content = styled.div`
     height: calc(100vh - 140px);
     display: flex;
     flex-direction: column;
+    position: relative;
 
     h1 {
         margin: 28px 0 0 15px;
@@ -74,4 +76,17 @@ const Menu = styled.div`
     p {
         color: #52B6FF;
     }
+`
+
+const Button = styled.button`
+    width:40px;
+    height:35px;
+    background-color: #52B6FF;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 27px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
 `
