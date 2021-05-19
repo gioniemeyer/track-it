@@ -1,19 +1,24 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 
-export default function Home() {
+export default function SubscribePage() {
+    let history = useHistory();
+
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [picture, setPicture] = useState('');
 
-    function LogIn() {
-        const body= {email, password};
-        const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', body);
-        promise.then(resp => console.log(resp.data));
-        promise.catch(error => console.log(error));
+    function Subscribe() {
+        const body = {email, name, image: picture, password};
+
+        const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', body);
+        promise.then(history.push('/'));
+
     }
 
     return (
@@ -24,10 +29,14 @@ export default function Home() {
                 </input>
                 <input type='password' placeholder='senha' value={password} onChange={e => setPassword(e.target.value) } >
                 </input>
+                <input type='text' placeholder='nome' value={name} onChange={e => setName(e.target.value) } >
+                </input>
+                <input type='url' placeholder='foto' value={picture} onChange={e => setPicture(e.target.value) } >
+                </input>
             </Form>
-            <button onClick={LogIn}>Entrar</button>
-            <Link to='/cadastro'>
-                <p>Não tem uma conta? Cadastre-se!</p>
+            <button onClick={Subscribe}>Entrar</button>
+            <Link to='/'>
+                <p>Não tem uma conta? Faça login!</p>
             </Link>
 
         </HomeDiv>
