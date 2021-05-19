@@ -27,7 +27,7 @@ export default function HabitsPage() {
 
             <Content>
                 <h1> Meus hábitos</h1>
-                <Button>+</Button>
+                <Button >+</Button>
                 {
                     habits.map( h => <Habit h={h} />)
                 }

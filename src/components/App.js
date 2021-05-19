@@ -9,6 +9,8 @@ import userContext from '../contexts/UserContext'
 
 export default function App() {
   const [user, setUser] = useState('');
+  const [load, setLoad] = useState(false);
+
 
   return (
     <userContext.Provider value={{user, setUser}}>

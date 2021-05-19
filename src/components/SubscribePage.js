@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 
-export default function SubscribePage() {
+export default function SubscribePage({load, setLoad}) {
     let history = useHistory();
 
 
@@ -26,15 +26,15 @@ export default function SubscribePage() {
         <HomeDiv>
             <img src={logo}></img>
             <Form onSubmit={Subscribe}>
-                <input type='email' placeholder='email' value={email} onChange={e => setEmail(e.target.value) } >
+                <input disabled={load} type='email' placeholder='email' value={email} onChange={e => setEmail(e.target.value) } >
                 </input>
-                <input type='password' placeholder='senha' value={password} onChange={e => setPassword(e.target.value) } >
+                <input disabled={load} type='password' placeholder='senha' value={password} onChange={e => setPassword(e.target.value) } >
                 </input>
-                <input type='text' placeholder='nome' value={name} onChange={e => setName(e.target.value) } >
+                <input disabled={load} type='text' placeholder='nome' value={name} onChange={e => setName(e.target.value) } >
                 </input>
-                <input type='url' placeholder='foto' value={picture} onChange={e => setPicture(e.target.value) } >
+                <input disabled={load} type='url' placeholder='foto' value={picture} onChange={e => setPicture(e.target.value) } >
                 </input>
-                <button type='submit'>Entrar</button>
+                <button disabled={load} type='submit'>Entrar</button>
             </Form>
             <Link to='/'>
                 <p>Não tem uma conta? Faça login!</p>
@@ -61,6 +61,11 @@ const HomeDiv = styled.div`
             color: #fff;
             height:45px;
         }
+
+        button:disabled {
+            opacity: 0.7;
+        }
+
         p{
             text-decoration: underline;
             color: #52B6FF;
@@ -79,4 +84,12 @@ const Form = styled.form`
             border: 1px solid #D4D4D4;
             border-radius: 5px;
         }
+        ::placeholder {
+            color: #dbdbdb;
+        }
+
+        input:disabled {
+            background-color: #F2F2F2;
+        }
+
 `
