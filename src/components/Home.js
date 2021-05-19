@@ -1,19 +1,23 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 
-export default function Home() {
-
+export default function Home({setUser}) {
+    let history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     function LogIn() {
         const body= {email, password};
+
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', body);
-        promise.then(resp => console.log(resp.data));
-        promise.catch(error => console.log(error));
+        promise.then(resp => {
+            setUser(resp.data);
+            history.push('/hoje');
+        });
+        promise.catch(e => alert('Infelizmente algum campo não foi preenchido corretamente, tente novamente.'));
     }
 
     return (

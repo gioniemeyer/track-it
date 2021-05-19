@@ -18,7 +18,7 @@ export default function SubscribePage() {
 
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', body);
         promise.then(history.push('/'));
-
+        promise.catch(e => alert('Infelizmente algum campo não foi preenchido corretamente, tente novamente.'))
     }
 
     return (
