@@ -1,12 +1,16 @@
 import axios from 'axios';
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import styled from "styled-components";
+import UserContext from '../contexts/UserContext';
 import '../styles/index.css';
 import Habit from './Habit';
+import dayjs from "dayjs";
+import localeData from "dayjs/plugin/localeData";
+dayjs.extend(localeData);
 
-
-export default function TodaysPage({user}) {
-    console.log(user);
+export default function TodaysPage() {
+    const {user} = useContext(UserContext);
+    console.log(user)
 
     useEffect(() => {
         const config = {
@@ -14,17 +18,17 @@ export default function TodaysPage({user}) {
                 Authorization: `Bearer ${user.token}`
             }
         }
-        const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);
+        const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config);
         promise.then(r => console.log(r));
     } ,[])
     return(
         <div className='container'>
             <Header>
                 <p>TrackIt</p>
-                <img src='https://img.estadao.com.br/thumbs/640/resources/jpg/8/6/1603832656468.jpg' />
+                <img src={user.image} />
             </Header>
             <Content>
-                <h1>Terça-feira, 18/05</h1>
+                <h1> {dayjs().day()}, {dayjs().date()}</h1>
                 <p>Nenhum hábito concluído ainda</p>
                 {/* <Habit /> */}
             </Content>

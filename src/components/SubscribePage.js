@@ -13,7 +13,8 @@ export default function SubscribePage() {
     const [name, setName] = useState('');
     const [picture, setPicture] = useState('');
 
-    function Subscribe() {
+    function Subscribe(e) {
+        e.preventDefault();
         const body = {email, name, image: picture, password};
 
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', body);
@@ -24,7 +25,7 @@ export default function SubscribePage() {
     return (
         <HomeDiv>
             <img src={logo}></img>
-            <Form>
+            <Form onSubmit={Subscribe}>
                 <input type='email' placeholder='email' value={email} onChange={e => setEmail(e.target.value) } >
                 </input>
                 <input type='password' placeholder='senha' value={password} onChange={e => setPassword(e.target.value) } >
@@ -33,8 +34,8 @@ export default function SubscribePage() {
                 </input>
                 <input type='url' placeholder='foto' value={picture} onChange={e => setPicture(e.target.value) } >
                 </input>
+                <button type='submit'>Entrar</button>
             </Form>
-            <button onClick={Subscribe}>Entrar</button>
             <Link to='/'>
                 <p>Não tem uma conta? Faça login!</p>
             </Link>

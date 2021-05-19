@@ -9,7 +9,9 @@ export default function Home({setUser}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    function LogIn() {
+    function LogIn(e) {
+        e.preventDefault();
+
         const body= {email, password};
 
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', body);
@@ -23,13 +25,13 @@ export default function Home({setUser}) {
     return (
         <HomeDiv>
             <img src={logo}></img>
-            <Form>
+            <Form onSubmit={LogIn}>
                 <input type='email' placeholder='email' value={email} onChange={e => setEmail(e.target.value) } >
                 </input>
                 <input type='password' placeholder='senha' value={password} onChange={e => setPassword(e.target.value) } >
                 </input>
+                <button type='submit'>Entrar</button>
             </Form>
-            <button onClick={LogIn}>Entrar</button>
             <Link to='/cadastro'>
                 <p>Não tem uma conta? Cadastre-se!</p>
             </Link>
