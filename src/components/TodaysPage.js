@@ -3,17 +3,19 @@ import { useEffect, useContext } from "react";
 import styled from "styled-components";
 import UserContext from '../contexts/UserContext';
 import '../styles/index.css';
-import Habit from './Habit';
+import TodaysHabit from './TodaysHabit';
 import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
 import { useHistory } from 'react-router';
 import Header from './Header';
 import Menu from './Menu';
+import HabitsContext from "../contexts/HabitsContext";
+
 
 export default function TodaysPage() {
     let history = useHistory();
     const {user} = useContext(UserContext);
-    console.log(user)
+    const {habits, setHabits} = useContext(HabitsContext);
 
     useEffect(() => {
         const config = {
@@ -22,16 +24,26 @@ export default function TodaysPage() {
             }
         }
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config);
-        promise.then(r => console.log(r));
+        promise.then(r => setHabits(r.data));
+        console.log(habits);
     } ,[])
     return(
         <>
             <Header />
 
             <Content>
+
+            <ContentHeader>
                 <h1> {dayjs().day()}, {dayjs().date()}</h1>
-                <p>Nenhum hábito concluído ainda</p>
-                {/* <Habit /> */}
+                </ContentHeader>
+                <ContentBody>
+                    {
+                        habits.length > 0 ?
+                        habits.map( h => <TodaysHabit h={h} />) :
+                        <p>Nenhum hábito concluído ainda</p>
+                    }
+                </ContentBody>
+
             </Content>
             <Menu history={history} />
         </>
@@ -40,14 +52,14 @@ export default function TodaysPage() {
 
 
 const Content = styled.div`
-    margin:70px 0;
+    margin-top:70px;
     background-color:#e5e5e5;
-    height: calc(100vh - 140px);
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
 
     h1 {
-        margin: 28px 0 0 15px;
         font-size: 23px;
         color: #126BA5;
     }
@@ -57,3 +69,15 @@ const Content = styled.div`
     }
 `
 
+const ContentHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 15px;
+`
+
+const ContentBody = styled.div`
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+`

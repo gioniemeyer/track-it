@@ -45,13 +45,13 @@ export default function CreateHabit({name, setName, days, setDays, setNewHabit, 
         <Box>
             <input disabled={load} type='text' placeholder='nome do hábito' value={name} onChange={(e) => setName(e.target.value)}></input>
             <Days>
-                <button disabled={load} selected={days[0].status} onClick={d => addDay(0)}>D</button>
-                <button disabled={load} onClick={d => addDay(1)}>S</button>
-                <button disabled={load} onClick={d => addDay(2)}>T</button>
-                <button disabled={load} onClick={d => addDay(3)}>Q</button>
-                <button disabled={load} onClick={d => addDay(4)}>Q</button>
-                <button disabled={load} onClick={d => addDay(5)}>S</button>
-                <button disabled={load} onClick={d => addDay(6)}>S</button>
+                <ButtonDay disabled={load} selected={days[0].status} onClick={d => addDay(0)}>D</ButtonDay>
+                <ButtonDay disabled={load} selected={days[1].status} onClick={d => addDay(1)}>S</ButtonDay>
+                <ButtonDay disabled={load} selected={days[2].status} onClick={d => addDay(2)}>T</ButtonDay>
+                <ButtonDay disabled={load} selected={days[3].status} onClick={d => addDay(3)}>Q</ButtonDay>
+                <ButtonDay disabled={load} selected={days[4].status} onClick={d => addDay(4)}>Q</ButtonDay>
+                <ButtonDay disabled={load} selected={days[5].status} onClick={d => addDay(5)}>S</ButtonDay>
+                <ButtonDay disabled={load} selected={days[6].status} onClick={d => addDay(6)}>S</ButtonDay>
             </Days>
             <Buttons>
                 <Cancel disabled={load} onClick={() => setNewHabit(false)}>Cancelar</Cancel>
@@ -89,18 +89,18 @@ const Box = styled.div`
         background-color: #F2F2F2;
     }
 `
+const ButtonDay = styled.button`
+    border-radius: 5px;
+    border: 1px solid #D4D4D4;
+    color: ${props => props.selected ? '#fff' : '#D4D4D4'};
+    background-color: ${props => props.selected ? '#CFCFCF' : '#fff'};
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+`
 const Days = styled.div`
     display: flex;
     justify-content: flex-start;
-    button {
-        border-radius: 5px;
-        border: 1px solid #D4D4D4;
-        color: #D4D4D4;
-        background-color: ${props => props.selected ? '#CFCFCF' : '#fff'};
-        width: 30px;
-        height: 30px;
-        margin-right: 5px;
-    }
 `
 const Buttons = styled.div`
     display: flex;

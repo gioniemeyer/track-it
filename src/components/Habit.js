@@ -1,55 +1,80 @@
 import styled from "styled-components";
+import {useContext} from 'react';
+import HabitsContext from '../contexts/HabitsContext';
+import axios from 'axios';
 
 export default function Habit({h}) {
+    const {habits, setHabits} = useContext(HabitsContext);
 
     return (
-        <HabitBox>
-            <DescriptionHabit key={h.id}>
-                <h1>{h.name}</h1>
-                <p>Sequência atual: {h.currentSequence} dias</p>
-                <p>Seu recorde: {h.highestSequence} dias</p>
-            </DescriptionHabit>
-            <Check done = {h.done}>
-                <ion-icon name="checkmark-outline"></ion-icon>
-            </Check>
-
-        </HabitBox>
+        <Box>
+            <h1>{h.name}</h1>
+            <Days>
+                <ButtonDay selected={h.days.includes(0)}>D</ButtonDay>
+                <ButtonDay selected={h.days.includes(1)} >S</ButtonDay>
+                <ButtonDay selected={h.days.includes(2)} >T</ButtonDay>
+                <ButtonDay selected={h.days.includes(3)} >Q</ButtonDay>
+                <ButtonDay selected={h.days.includes(4)} >Q</ButtonDay>
+                <ButtonDay selected={h.days.includes(5)} >S</ButtonDay>
+                <ButtonDay selected={h.days.includes(6)} >S</ButtonDay>
+            </Days>
+        </Box>
     )
 }
 
-const HabitBox = styled.div`
-    width: 340px;
-    height: 94px;
-    background-color:#fff;
-    display: flex;
+const Box = styled.div`
+    display:flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    width: 340px;
+    height: 90px;
+    background-color: #fff;
+    border: none;
+    box-sizing: border-box;
+    padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
 
-`
-const DescriptionHabit = styled.div`
-    margin-left: 10px;
-    h1{
-        font-size:20px;
-    }
-    p {
-        font-size: 12px;
+    h1 {
+        margin: 5px auto;
+        width: 100%;
+        height: 45px;
+        border-radius: 5px;
+        color: #000;
     }
 `
-const Check = styled.div`
-    width: 69px;
-    height: 69px;
-    background-color: #8FC549;
-    border-radius: 5px;
-    margin-right:10px;
-    
-    ion-icon {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    color: #fff;
-    font-size: 16px;
-}
 
+const ButtonDay = styled.button`
+    border-radius: 5px;
+    border: 1px solid #D4D4D4;
+    color: ${props => props.selected ? '#fff' : '#D4D4D4'};
+    background-color: ${props => props.selected ? '#CFCFCF' : '#fff'};
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+`
+const Days = styled.div`
+    display: flex;
+    justify-content: flex-start;
+`
+const Buttons = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    font-size: 16px;
+`
+const Cancel = styled.button`
+    background: transparent;
+    border: none;
+    color: #52B6FF;
+`
+
+const Save = styled.button`
+    padding: 7px 17px;
+    background-color: #52B6FF;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    &:disabled {
+            opacity: 0.7;
+        }
 `

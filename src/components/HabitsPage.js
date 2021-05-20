@@ -63,7 +63,7 @@ export default function HabitsPage({load, setLoad}) {
 const Content = styled.div`
     margin:70px 0;
     background-color:#e5e5e5;
-    height: calc(100vh - 140px);
+    height: calc(100% - 140px);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -99,9 +99,7 @@ const Button = styled.button`
     border-radius: 5px;
     color: #fff;
     font-size: 27px;
-    /* position: absolute;
-    top: 15px;
-    right: 15px; */
+
 `
 
 const Box = styled.form`

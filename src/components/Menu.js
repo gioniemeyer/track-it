@@ -32,7 +32,7 @@ export default function Menu({history}) {
 }
 
 const MenuDiv = styled.div`
-    position: absolute;
+    position: fixed;
     height: 70px;
     background-color: #fff;
     width: 100%;
