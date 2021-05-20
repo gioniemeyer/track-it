@@ -6,13 +6,19 @@ import styled from "styled-components";
 import Habit from './Habit';
 import Menu from "./Menu";
 import { useHistory } from "react-router";
+import CreateHabit from "./CreateHabit";
 
 
 export default function HabitsPage() {
     let history = useHistory();
 
+    const [name, setName] = useState({});
+    const [days, setDays] = useState([{day: 0, status: false}, {day: 1, status: false}, 
+        {day: 2, status: false}, {day: 3, status: false}, {day: 4, status: false}, 
+        {day: 5, status: false},{day: 6, status: false}]);
     const {user} = useContext(UserContext);
-    const [habits, setHabits] = useState([])
+    const [habits, setHabits] = useState([]);
+    const [newHabit, setNewHabit] = useState(false);
 
     useEffect( () => {
         const config = {
@@ -29,13 +35,21 @@ export default function HabitsPage() {
             <Header />
 
             <Content>
-                <h1> Meus hábitos</h1>
-                <Button >+</Button>
-                {
-                    habits.map( h => <Habit h={h} />)
-                }
-                <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+                <ContentHeader>
+                    <h1> Meus hábitos</h1>
+                    <Button onClick={() => setNewHabit(true)}>+</Button>
+                </ContentHeader>
+                <ContentBody>
+                    {newHabit ? <CreateHabit name={name} setName={setName} setNewHabit={setNewHabit} days={days} setDays={setDays}/> : ''}
+                    {
+                        habits.map( h => <Habit h={h} />)
+                    }
+                    <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+                </ContentBody>
+
+                
             </Content>
+
             <Menu history={history} />
         </>
     )
@@ -48,10 +62,9 @@ const Content = styled.div`
     height: calc(100vh - 140px);
     display: flex;
     flex-direction: column;
-    position: relative;
+    box-sizing: border-box;
 
     h1 {
-        margin: 28px 0 0 15px;
         font-size: 23px;
         color: #126BA5;
     }
@@ -59,6 +72,19 @@ const Content = styled.div`
         margin: 5px 0 0 15px;
         color: #bababa;
     }
+`
+
+const ContentHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 15px;
+`
+
+const ContentBody = styled.div`
+    display:flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 const Button = styled.button`
@@ -69,7 +95,17 @@ const Button = styled.button`
     border-radius: 5px;
     color: #fff;
     font-size: 27px;
-    position: absolute;
+    /* position: absolute;
     top: 15px;
-    right: 15px;
+    right: 15px; */
+`
+
+const Box = styled.form`
+    width: 340px;
+    height: 180px;
+    background-color: #fff;
+    border: none;
+`
+const Days = styled.div`
+    display: flex;
 `

@@ -12,7 +12,7 @@ export default function Menu({history}) {
     return(
         <MenuDiv>
             <p onClick={() => {history.push('/habitos')}}>Hábitos</p>
-            <Progress>
+            <Progress onClick={() => {history.push('/hoje')}}>
                 <CircularProgressbar
                     value={percentage}
                     text={`${percentage}%`}
