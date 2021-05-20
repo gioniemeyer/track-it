@@ -2,16 +2,18 @@ import { useContext } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import UserContext from '../contexts/UserContext';
+import LoadContext from '../contexts/LoadContext';
 
-
-export default function CreateHabit({name, setName, days, setDays, setNewHabit}) {
+export default function CreateHabit({name, setName, days, setDays, setNewHabit, updateHabits}) {
     const {user} = useContext(UserContext);
+    const {load, setLoad} = useContext(LoadContext);
+
     const config = {
         headers: {
             Authorization: `Bearer ${user.token}`
         }
     }
-    
+
     function addDay(d) {
 
         const selectedDays = days.map(day => {
@@ -23,7 +25,7 @@ export default function CreateHabit({name, setName, days, setDays, setNewHabit})
     }
 
     function saveHabit() {
-
+        setLoad(true);
         let selectedDays = days.filter(d => d.status)
         selectedDays = selectedDays.map(d => d.day)
 
@@ -31,29 +33,31 @@ export default function CreateHabit({name, setName, days, setDays, setNewHabit})
         console.log(body.days);
         const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', body, config);
         request.then(resp => {
+            setLoad(false);
+            setName('');
             console.log(resp.data);
-            setNewHabit(false)
+            setNewHabit(false);
+            updateHabits();
         })
     }   
 
     return(
-            <Box>
-                <input type='text' placeholder='nome do hábito' value={name} onChange={(e) => setName(e.target.value)}></input>
-                <Days>
-                    <button selected={days[0].status} onClick={d => addDay(0)}>D</button>
-                    <button onClick={d => addDay(1)}>S</button>
-                    <button onClick={d => addDay(2)}>T</button>
-                    <button onClick={d => addDay(3)}>Q</button>
-                    <button onClick={d => addDay(4)}>Q</button>
-                    <button onClick={d => addDay(5)}>S</button>
-                    <button onClick={d => addDay(6)}>S</button>
-                </Days>
-                <Buttons>
-                    <Cancel onClick={() => setNewHabit(false)}>Cancelar</Cancel>
-                    <Save onClick={saveHabit}>Salvar</Save>
-                </Buttons>
-
-            </Box>
+        <Box>
+            <input disabled={load} type='text' placeholder='nome do hábito' value={name} onChange={(e) => setName(e.target.value)}></input>
+            <Days>
+                <button disabled={load} selected={days[0].status} onClick={d => addDay(0)}>D</button>
+                <button disabled={load} onClick={d => addDay(1)}>S</button>
+                <button disabled={load} onClick={d => addDay(2)}>T</button>
+                <button disabled={load} onClick={d => addDay(3)}>Q</button>
+                <button disabled={load} onClick={d => addDay(4)}>Q</button>
+                <button disabled={load} onClick={d => addDay(5)}>S</button>
+                <button disabled={load} onClick={d => addDay(6)}>S</button>
+            </Days>
+            <Buttons>
+                <Cancel disabled={load} onClick={() => setNewHabit(false)}>Cancelar</Cancel>
+                <Save disabled={load} onClick={saveHabit}>Salvar</Save>
+            </Buttons>
+        </Box>
     )
 }
 
@@ -114,4 +118,7 @@ const Save = styled.button`
     color: #fff;
     border-radius: 5px;
     border: none;
+    &:disabled {
+            opacity: 0.7;
+        }
 `

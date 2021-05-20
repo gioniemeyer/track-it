@@ -10,7 +10,7 @@ import { useHistory } from 'react-router';
 import Header from './Header';
 import Menu from './Menu';
 
-export default function TodaysPage({load, setLoad}) {
+export default function TodaysPage() {
     let history = useHistory();
     const {user} = useContext(UserContext);
     console.log(user)

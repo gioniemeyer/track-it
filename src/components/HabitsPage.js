@@ -9,7 +9,7 @@ import { useHistory } from "react-router";
 import CreateHabit from "./CreateHabit";
 
 
-export default function HabitsPage() {
+export default function HabitsPage({load, setLoad}) {
     let history = useHistory();
 
     const [name, setName] = useState('');
@@ -20,7 +20,7 @@ export default function HabitsPage() {
     const [habits, setHabits] = useState([]);
     const [newHabit, setNewHabit] = useState(false);
 
-    useEffect( () => {
+    function updateHabits() {
         const config = {
             headers: {
                 Authorization: `Bearer ${user.token}`
@@ -28,7 +28,9 @@ export default function HabitsPage() {
         }
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);
         promise.then(r => setHabits(r.data));
-    }, [] )
+    }
+
+    useEffect( updateHabits, [] )
 
     return(
         <>
@@ -40,7 +42,7 @@ export default function HabitsPage() {
                     <Button onClick={() => setNewHabit(true)}>+</Button>
                 </ContentHeader>
                 <ContentBody>
-                    {newHabit ? <CreateHabit name={name} setName={setName} setNewHabit={setNewHabit} days={days} setDays={setDays}/> : ''}
+                    {newHabit ? <CreateHabit updateHabits={updateHabits} name={name} setName={setName} setNewHabit={setNewHabit} days={days} setDays={setDays}/> : ''}
                     {
                         habits.length > 0 ?
                         habits.map( h => <Habit h={h} />) :

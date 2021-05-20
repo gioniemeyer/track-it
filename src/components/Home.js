@@ -4,10 +4,12 @@ import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 import UserContext from '../contexts/UserContext';
+import LoadContext from "../contexts/LoadContext";
 
-export default function Home({load, setLoad}) {
+export default function Home() {
     let history = useHistory();
     const {setUser} = useContext(UserContext);
+    const {load, setLoad} = useContext(LoadContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 

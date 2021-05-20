@@ -6,6 +6,7 @@ import SubscribePage from './SubscribePage';
 import TodaysPage from './TodaysPage';
 import HabitsPage from './HabitsPage';
 import userContext from '../contexts/UserContext'
+import LoadContext from '../contexts/LoadContext';
 
 export default function App() {
   const [user, setUser] = useState('');
@@ -14,22 +15,24 @@ export default function App() {
 
   return (
     <userContext.Provider value={{user, setUser}}>
-      <BrowserRouter>
-      <Switch>
-        <Route path="/" exact>
-          <Home load={load} setLoad={setLoad} />
-        </Route>
-        <Route path='/cadastro' exact>
-          <SubscribePage load={load} setLoad={setLoad} />
-        </Route>
-        <Route path='/hoje' exact>
-          <TodaysPage />
-        </Route>
-        <Route path='/habitos'>
-          <HabitsPage />
-        </Route>
-      </Switch>
-      </BrowserRouter>
+      <LoadContext.Provider value={{load, setLoad}}>
+        <BrowserRouter>
+        <Switch>
+          <Route path="/" exact>
+            <Home load={load} setLoad={setLoad} />
+          </Route>
+          <Route path='/cadastro' exact>
+            <SubscribePage load={load} setLoad={setLoad} />
+          </Route>
+          <Route path='/hoje' exact>
+            <TodaysPage />
+          </Route>
+          <Route path='/habitos'>
+            <HabitsPage load={load} setLoad={setLoad} />
+          </Route>
+        </Switch>
+        </BrowserRouter>
+      </LoadContext.Provider>
     </userContext.Provider>
   );
 }

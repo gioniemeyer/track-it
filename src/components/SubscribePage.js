@@ -1,13 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../images/logo.png";
+import LoadContext from "../contexts/LoadContext";
 
-export default function SubscribePage({load, setLoad}) {
+export default function SubscribePage() {
     let history = useHistory();
 
-
+    const {load, setLoad} = useContext(LoadContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
