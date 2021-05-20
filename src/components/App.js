@@ -17,10 +17,10 @@ export default function App() {
       <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          <Home setUser={setUser} />
+          <Home load={load} setLoad={setLoad} />
         </Route>
         <Route path='/cadastro' exact>
-          <SubscribePage />
+          <SubscribePage load={load} setLoad={setLoad} />
         </Route>
         <Route path='/hoje' exact>
           <TodaysPage />

@@ -15,11 +15,17 @@ export default function SubscribePage({load, setLoad}) {
 
     function Subscribe(e) {
         e.preventDefault();
+        setLoad(true);
         const body = {email, name, image: picture, password};
 
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', body);
-        promise.then(history.push('/'));
-        promise.catch(e => alert('Infelizmente algum campo não foi preenchido corretamente, tente novamente.'))
+        promise.then(() => {
+            setLoad(false);
+            history.push('/')});
+        promise.catch(e => {
+            alert('Infelizmente algum campo não foi preenchido corretamente, tente novamente.');
+            setLoad(false);
+        })
     }
 
     return (

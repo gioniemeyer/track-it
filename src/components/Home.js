@@ -1,11 +1,13 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../images/logo.png";
+import UserContext from '../contexts/UserContext';
 
-export default function Home({setUser, load, setLoad}) {
+export default function Home({load, setLoad}) {
     let history = useHistory();
+    const {setUser} = useContext(UserContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 

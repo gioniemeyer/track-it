@@ -4,9 +4,12 @@ import axios from 'axios';
 import Header from './Header'
 import styled from "styled-components";
 import Habit from './Habit';
+import Menu from "./Menu";
+import { useHistory } from "react-router";
 
 
 export default function HabitsPage() {
+    let history = useHistory();
 
     const {user} = useContext(UserContext);
     const [habits, setHabits] = useState([])
@@ -33,10 +36,7 @@ export default function HabitsPage() {
                 }
                 <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
             </Content>
-            <Menu>
-                <p >Hábitos</p>
-                <p >Histórico</p>
-            </Menu>
+            <Menu history={history} />
         </>
     )
 }
@@ -58,23 +58,6 @@ const Content = styled.div`
     p {
         margin: 5px 0 0 15px;
         color: #bababa;
-    }
-`
-
-const Menu = styled.div`
-    position: absolute;
-    height: 70px;
-    background-color: #fff;
-    width: 100%;
-    bottom:0;
-    left:0;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 15px;
-    box-sizing: border-box;
-    align-items: center;
-    p {
-        color: #52B6FF;
     }
 `
 
