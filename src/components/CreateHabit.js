@@ -72,6 +72,7 @@ const Box = styled.div`
     box-sizing: border-box;
     padding: 10px;
     border-radius: 5px;
+    margin-bottom: 10px;
 
     input {
         border: 1px solid #D4D4D4;

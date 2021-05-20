@@ -1,14 +1,17 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export default function Habit({h}) {
+
     return (
         <HabitBox>
-            <DescriptionHabit>
-                <h1>Meditar</h1>
-                <p>Sequência atual: x dias</p>
-                <p>Seu recorde: x dias</p>
+            <DescriptionHabit key={h.id}>
+                <h1>{h.name}</h1>
+                <p>Sequência atual: {h.currentSequence} dias</p>
+                <p>Seu recorde: {h.highestSequence} dias</p>
             </DescriptionHabit>
-            <Check />
+            <Check done = {h.done}>
+                <ion-icon name="checkmark-outline"></ion-icon>
+            </Check>
 
         </HabitBox>
     )
@@ -22,10 +25,10 @@ const HabitBox = styled.div`
     justify-content: space-between;
     align-items: center;
     border-radius: 5px;
+    margin-bottom: 10px;
 
 `
 const DescriptionHabit = styled.div`
-    background-color: pink;
     margin-left: 10px;
     h1{
         font-size:20px;
@@ -40,4 +43,13 @@ const Check = styled.div`
     background-color: #8FC549;
     border-radius: 5px;
     margin-right:10px;
+    
+    ion-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    color: #fff;
+    font-size: 16px;
+}
+
 `

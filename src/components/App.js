@@ -7,11 +7,12 @@ import TodaysPage from './TodaysPage';
 import HabitsPage from './HabitsPage';
 import userContext from '../contexts/UserContext'
 import LoadContext from '../contexts/LoadContext';
+import HabitsContext from '../contexts/HabitsContext';
 
 export default function App() {
   const [user, setUser] = useState('');
   const [load, setLoad] = useState(false);
-
+  const [habits, setHabits] = useState([]);
 
   return (
     <userContext.Provider value={{user, setUser}}>
@@ -24,12 +25,14 @@ export default function App() {
           <Route path='/cadastro' exact>
             <SubscribePage load={load} setLoad={setLoad} />
           </Route>
-          <Route path='/hoje' exact>
-            <TodaysPage />
-          </Route>
-          <Route path='/habitos'>
-            <HabitsPage load={load} setLoad={setLoad} />
-          </Route>
+          <HabitsContext.Provider value={{habits, setHabits}}>
+            <Route path='/hoje' exact>
+              <TodaysPage />
+            </Route>
+            <Route path='/habitos'>
+              <HabitsPage load={load} setLoad={setLoad} />
+            </Route>
+          </HabitsContext.Provider>
         </Switch>
         </BrowserRouter>
       </LoadContext.Provider>

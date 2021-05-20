@@ -7,6 +7,7 @@ import Habit from './Habit';
 import Menu from "./Menu";
 import { useHistory } from "react-router";
 import CreateHabit from "./CreateHabit";
+import HabitsContext from "../contexts/HabitsContext";
 
 
 export default function HabitsPage({load, setLoad}) {
@@ -17,7 +18,7 @@ export default function HabitsPage({load, setLoad}) {
         {day: 2, status: false}, {day: 3, status: false}, {day: 4, status: false}, 
         {day: 5, status: false},{day: 6, status: false}]);
     const {user} = useContext(UserContext);
-    const [habits, setHabits] = useState([]);
+    const {habits, setHabits} = useContext(HabitsContext);
     const [newHabit, setNewHabit] = useState(false);
 
     function updateHabits() {
