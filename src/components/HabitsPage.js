@@ -12,7 +12,7 @@ import CreateHabit from "./CreateHabit";
 export default function HabitsPage() {
     let history = useHistory();
 
-    const [name, setName] = useState({});
+    const [name, setName] = useState('');
     const [days, setDays] = useState([{day: 0, status: false}, {day: 1, status: false}, 
         {day: 2, status: false}, {day: 3, status: false}, {day: 4, status: false}, 
         {day: 5, status: false},{day: 6, status: false}]);
@@ -42,9 +42,10 @@ export default function HabitsPage() {
                 <ContentBody>
                     {newHabit ? <CreateHabit name={name} setName={setName} setNewHabit={setNewHabit} days={days} setDays={setDays}/> : ''}
                     {
-                        habits.map( h => <Habit h={h} />)
+                        habits.length > 0 ?
+                        habits.map( h => <Habit h={h} />) :
+                        <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
                     }
-                    <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
                 </ContentBody>
 
                 

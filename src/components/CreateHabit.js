@@ -1,9 +1,17 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import UserContext from '../contexts/UserContext';
+
 
 export default function CreateHabit({name, setName, days, setDays, setNewHabit}) {
-
+    const {user} = useContext(UserContext);
+    const config = {
+        headers: {
+            Authorization: `Bearer ${user.token}`
+        }
+    }
+    
     function addDay(d) {
 
         const selectedDays = days.map(day => {
@@ -15,11 +23,13 @@ export default function CreateHabit({name, setName, days, setDays, setNewHabit})
     }
 
     function saveHabit() {
+
         let selectedDays = days.filter(d => d.status)
         selectedDays = selectedDays.map(d => d.day)
+
         const body = {name, days: selectedDays}
         console.log(body.days);
-        const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', body);
+        const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', body, config);
         request.then(resp => {
             console.log(resp.data);
             setNewHabit(false)
@@ -65,6 +75,13 @@ const Box = styled.div`
         width: 100%;
         height: 45px;
         border-radius: 5px;
+    }
+    ::placeholder {
+            color: #dbdbdb;
+        }
+
+    input:disabled {
+        background-color: #F2F2F2;
     }
 `
 const Days = styled.div`
