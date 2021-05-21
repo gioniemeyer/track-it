@@ -14,6 +14,7 @@ import TodaysHabitContext from "../contexts/TodaysHabitContext";
 
 export default function TodaysPage() {
     let history = useHistory();
+    let token = localStorage.getItem('token');
     const {user} = useContext(UserContext);
     const {today, setToday} = useContext(TodaysHabitContext);
     const todaysConcluded = today.filter( item => item.done )
@@ -22,7 +23,7 @@ export default function TodaysPage() {
     useEffect(() => {
         const config = {
             headers: {
-                Authorization: `Bearer ${user.token}`
+                Authorization: `Bearer ${user.token || token}` 
             }
         }
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config);

@@ -7,10 +7,11 @@ import LoadContext from '../contexts/LoadContext';
 export default function CreateHabit({name, setName, days, setDays, setNewHabit, updateHabits}) {
     const {user} = useContext(UserContext);
     const {load, setLoad} = useContext(LoadContext);
+    let token = localStorage.getItem('token');
 
     const config = {
         headers: {
-            Authorization: `Bearer ${user.token}`
+            Authorization: `Bearer ${user.token || token}`
         }
     }
 

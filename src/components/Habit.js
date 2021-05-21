@@ -6,13 +6,14 @@ import UserContext from "../contexts/UserContext";
 
 export default function Habit({h, updateHabits}) {
     const {user} = useContext(UserContext);
+    let token = localStorage.getItem('token');
 
     function deleteHabit() {
         const answer = window.confirm('Are you sure you wish to delete this item?'); 
         if(answer) {
         const config = {
             headers: {
-                Authorization: `Bearer ${user.token}`
+                Authorization: `Bearer ${user.token || token}`
             }
         }
         const t = h.id; 

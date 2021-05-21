@@ -8,7 +8,7 @@ import Menu from './Menu';
 
 export default function TodaysPage() {
     let history = useHistory();
-
+    let token = localStorage.getItem('token');
         return(
         <>
             <Header />

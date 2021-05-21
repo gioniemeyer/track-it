@@ -14,6 +14,7 @@ export default function Home() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+
     function LogIn(e) {
         e.preventDefault();
         setLoad(true);
@@ -24,6 +25,7 @@ export default function Home() {
             setLoad(false);
             setUser(resp.data);
             history.push('/hoje');
+            localStorage.setItem('token', resp.data.token);
         });
         promise.catch(e => {
             alert('Infelizmente algum campo não foi preenchido corretamente, tente novamente.')

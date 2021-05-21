@@ -22,9 +22,11 @@ export default function HabitsPage({load, setLoad}) {
     const [newHabit, setNewHabit] = useState(false);
 
     function updateHabits() {
+        let token = localStorage.getItem('token');
+
         const config = {
             headers: {
-                Authorization: `Bearer ${user.token}`
+                Authorization: `Bearer ${user.token || token}`
             }
         }
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);

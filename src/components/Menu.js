@@ -9,7 +9,6 @@ import TodaysHabitContext from '../contexts/TodaysHabitContext';
 
  export default function Menu({history}) {
     const {today} = useContext(TodaysHabitContext);
-
     const todaysConcluded = today.filter( item => item.done )
     const percentage = todaysConcluded.length / today.length * 100;
  

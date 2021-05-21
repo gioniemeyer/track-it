@@ -3,6 +3,7 @@ import UserContext from "../contexts/UserContext";
 import styled from "styled-components";
 
 export default function Header() {
+    let token = localStorage.getItem('token');
 
     const {user} = useContext(UserContext);
 

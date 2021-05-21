@@ -23,23 +23,23 @@ export default function App() {
         <BrowserRouter>
         <Switch>
           <Route path="/" exact>
-            <Home load={load} setLoad={setLoad} />
+            <Home />
           </Route>
           <Route path='/cadastro' exact>
-            <SubscribePage load={load} setLoad={setLoad} />
+            <SubscribePage />
           </Route>
           <HabitsContext.Provider value={{habits, setHabits}}>
-          <TodaysHabitContext.Provider value={{today, setToday}}>
-            <Route path='/hoje' exact>
-              <TodaysPage />
-            </Route>
-            <Route path='/habitos'>
-              <HabitsPage load={load} setLoad={setLoad} />
-            </Route>
-            <Route path='/historico'>
-              <HistoryPage />
-            </Route>
-            </TodaysHabitContext.Provider>
+            <TodaysHabitContext.Provider value={{today, setToday}}>
+              <Route path='/hoje' exact>
+                <TodaysPage />
+              </Route>
+              <Route path='/habitos'>
+                <HabitsPage />
+              </Route>
+              <Route path='/historico'>
+                <HistoryPage />
+              </Route>
+              </TodaysHabitContext.Provider>
           </HabitsContext.Provider>
         </Switch>
         </BrowserRouter>

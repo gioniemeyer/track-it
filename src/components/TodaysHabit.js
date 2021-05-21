@@ -8,6 +8,7 @@ import axios from 'axios';
 export default function TodaysHabit({h}) {
     const {today, setToday} = useContext(TodaysHabitContext);
     const {user} = useContext(UserContext);
+    let token = localStorage.getItem('token');
 
     function toggleConclusion(h) {
         const array = today.map(item => {
@@ -39,7 +40,7 @@ export default function TodaysHabit({h}) {
     function sendToServerPositive(h) {
         const config = {
             headers: {
-                Authorization: `Bearer ${user.token}`
+                Authorization: `Bearer ${user.token || token}`
             }
         }
         const body = {};
@@ -50,7 +51,7 @@ export default function TodaysHabit({h}) {
     function sendToServerNegative(h) {
         const config = {
             headers: {
-                Authorization: `Bearer ${user.token}`
+                Authorization: `Bearer ${user.token || token}`
             }
         }
         const body = {};
