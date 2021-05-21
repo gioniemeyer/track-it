@@ -5,7 +5,7 @@ import UserContext from '../contexts/UserContext';
 import '../styles/index.css';
 import TodaysHabit from './TodaysHabit';
 import dayjs from "dayjs";
-import localeData from "dayjs/plugin/localeData";
+import "dayjs/locale/pt-br";
 import { useHistory } from 'react-router';
 import Header from './Header';
 import Menu from './Menu';
@@ -34,7 +34,7 @@ export default function TodaysPage() {
             <Content>
 
             <ContentHeader>
-                <h1> {dayjs().day()}, {dayjs().date()}</h1>
+                <h1> {dayjs().locale('pt-br').format('dddd')}, {dayjs().format(`DD`)}/{dayjs().format(`MM`)}</h1>
                 </ContentHeader>
                 <ContentBody>
                     {

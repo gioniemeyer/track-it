@@ -36,7 +36,6 @@ export default function HabitsPage({load, setLoad}) {
     return(
         <>
             <Header />
-
             <Content>
                 <ContentHeader>
                     <h1> Meus hábitos</h1>
@@ -50,10 +49,7 @@ export default function HabitsPage({load, setLoad}) {
                         <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
                     }
                 </ContentBody>
-
-                
             </Content>
-
             <Menu history={history} />
         </>
     )

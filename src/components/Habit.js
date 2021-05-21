@@ -1,10 +1,6 @@
 import styled from "styled-components";
-import {useContext} from 'react';
-import HabitsContext from '../contexts/HabitsContext';
-import axios from 'axios';
 
 export default function Habit({h}) {
-    const {habits, setHabits} = useContext(HabitsContext);
 
     return (
         <Box>
@@ -57,17 +53,6 @@ const Days = styled.div`
     display: flex;
     justify-content: flex-start;
 `
-const Buttons = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    font-size: 16px;
-`
-const Cancel = styled.button`
-    background: transparent;
-    border: none;
-    color: #52B6FF;
-`
-
 const Save = styled.button`
     padding: 7px 17px;
     background-color: #52B6FF;
