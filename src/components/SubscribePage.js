@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 import LoadContext from "../contexts/LoadContext";
+import Loader from "react-loader-spinner";
 
 export default function SubscribePage() {
     let history = useHistory();
@@ -41,7 +42,9 @@ export default function SubscribePage() {
                 </input>
                 <input disabled={load} type='url' placeholder='foto' value={picture} onChange={e => setPicture(e.target.value) } >
                 </input>
-                <button disabled={load} type='submit'>Entrar</button>
+                <button disabled={load} type='submit'>
+                    {load ? <Loader type="ThreeDots" color="#FFF" height={80} width={80} /> : 'Entrar'}    
+                </button>
             </Form>
             <Link to='/'>
                 <p>Não tem uma conta? Faça login!</p>
@@ -67,6 +70,9 @@ const HomeDiv = styled.div`
             border-radius: 5px;
             color: #fff;
             height:45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         button:disabled {

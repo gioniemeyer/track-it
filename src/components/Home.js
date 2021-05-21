@@ -5,6 +5,7 @@ import styled from "styled-components";
 import logo from "../images/logo.png";
 import UserContext from '../contexts/UserContext';
 import LoadContext from "../contexts/LoadContext";
+import Loader from "react-loader-spinner";
 
 export default function Home() {
     let history = useHistory();
@@ -38,7 +39,9 @@ export default function Home() {
                 </input>
                 <input disabled={load} type='password' placeholder='senha' value={password} onChange={e => setPassword(e.target.value) } >
                 </input>
-                <button disabled={load} type='submit'>Entrar</button>
+                <button disabled={load} type='submit'>
+                    {load ? <Loader type="ThreeDots" color="#FFF" height={80} width={80} /> : 'Entrar'}    
+                </button>
             </Form>
             <Link to='/cadastro'>
                 <p>Não tem uma conta? Cadastre-se!</p>
@@ -64,6 +67,9 @@ const HomeDiv = styled.div`
             border-radius: 5px;
             color: #fff;
             height:45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         button:disabled {
