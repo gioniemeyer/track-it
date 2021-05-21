@@ -13,9 +13,19 @@ export default function TodaysHabit({h}) {
         const array = today.map(item => {
             if(h.id === item.id) {
                 item.done = !item.done;
-                (!h.done) ? item.currentSequence = item.currentSequence - 1 
-                : item.currentSequence ++; 
-                if(item.currentSequence > item.highestSequence)  item.highestSequence ++;
+                if(!h.done) {
+                    if(item.currentSequence === item.highestSequence) {
+                        item.highestSequence = item.highestSequence - 1;
+                        item.currentSequence = item.currentSequence - 1;
+                    } else {
+                        item.currentSequence = item.currentSequence - 1;
+                    }
+                } else {
+                     item.currentSequence ++;
+                } 
+                if(item.currentSequence > item.highestSequence) {
+                    item.highestSequence ++;
+                }
             }
             return item;
         })
@@ -53,8 +63,8 @@ export default function TodaysHabit({h}) {
         <HabitBox>
             <DescriptionHabit key={h.id}>
                 <h1>{h.name}</h1>
-                <p>Sequência atual: {h.currentSequence} dias</p>
-                <p>Seu recorde: {h.highestSequence} dias</p>
+                <p>Sequência atual: <Span checked = {h.done}> {h.currentSequence} {h.currentSequence === 1 ? 'dia' : 'dias'}</Span> </p>
+                <p>Seu recorde: <Span checked = {h.done}>{h.highestSequence} {h.currentSequence === 1 ? 'dia' : 'dias'}</Span></p>
             </DescriptionHabit>
             <Check checked = {h.done} onClick={() => toggleConclusion(h)} done = {h.done}>
                 <AiOutlineCheck />
@@ -74,14 +84,22 @@ const HabitBox = styled.div`
     border-radius: 5px;
     margin-bottom: 10px;
 `
+
+
 const DescriptionHabit = styled.div`
     margin-left: 10px;
     h1{
+        color: #666666;
         font-size:20px;
     }
     p {
+        color: #666666;
         font-size: 12px;
     }
+`
+
+const Span = styled.span`
+    color: ${props => props.checked ? '#8FC549' : '#666666'};
 `
 const Check = styled.div`
     width: 69px;
