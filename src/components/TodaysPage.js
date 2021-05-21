@@ -27,7 +27,6 @@ export default function TodaysPage() {
         }
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config);
         promise.then(r => setToday(r.data));
-        console.log(today);
     } ,[])
 
     

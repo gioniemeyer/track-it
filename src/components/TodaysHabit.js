@@ -44,8 +44,7 @@ export default function TodaysHabit({h}) {
         }
         const body = {};
         const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${h.id}/check`, body, config);
-        promise.then(() => console.log('foi'));
-        promise.catch(() => console.log('não foi'));
+        promise.catch(() => alert('Algo deu errado.'));
     }
 
     function sendToServerNegative(h) {
@@ -56,8 +55,7 @@ export default function TodaysHabit({h}) {
         }
         const body = {};
         const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${h.id}/uncheck`, body, config);
-        promise.then(() => console.log('foi'));
-        promise.catch(() => console.log('não foi'));
+        promise.catch(() => alert('Algo deu errado.'));
     }
 
     return (

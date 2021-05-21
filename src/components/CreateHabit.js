@@ -30,12 +30,10 @@ export default function CreateHabit({name, setName, days, setDays, setNewHabit, 
         selectedDays = selectedDays.map(d => d.day)
 
         const body = {name, days: selectedDays}
-        console.log(body.days);
         const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', body, config);
         request.then(resp => {
             setLoad(false);
             setName('');
-            console.log(resp.data);
             setNewHabit(false);
             updateHabits();
         })

@@ -5,10 +5,11 @@ import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 
 export default function Habit({h, updateHabits}) {
-    console.log(h);
     const {user} = useContext(UserContext);
 
     function deleteHabit() {
+        const answer = window.confirm('Are you sure you wish to delete this item?'); 
+        if(answer) {
         const config = {
             headers: {
                 Authorization: `Bearer ${user.token}`
@@ -17,7 +18,8 @@ export default function Habit({h, updateHabits}) {
         const t = h.id; 
         const request = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${h.id}`, config);
         request.then(updateHabits);
-        request.catch(e => console.log(h));
+        request.catch(() => alert('Não foi possível deletar o hábito. :('));}
+        return;
     }
 
     return (
@@ -51,8 +53,6 @@ const Box = styled.div`
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
-
-
 `
 
 const HeaderBox = styled.div `

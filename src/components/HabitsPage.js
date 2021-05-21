@@ -29,7 +29,7 @@ export default function HabitsPage({load, setLoad}) {
         }
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);
         promise.then(r => setHabits(r.data));
-        promise.catch(error => console.log(error))
+        promise.catch(error => alert('Algo deu errado.'))
     }
 
     useEffect( updateHabits, [] );

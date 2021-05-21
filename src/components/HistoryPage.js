@@ -12,9 +12,7 @@ export default function TodaysPage() {
         return(
         <>
             <Header />
-
             <Content>
-
             <ContentHeader>
                 <h1> Histórico</h1>
                 </ContentHeader>
