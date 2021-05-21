@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export default function Habit({h}) {
-
+console.log(h)
     return (
         <Box>
             <h1>{h.name}</h1>
             <Days>
-                <ButtonDay selected={h.days.includes(0)}>D</ButtonDay>
+                <ButtonDay selected={h.days.includes(0)} >D</ButtonDay>
                 <ButtonDay selected={h.days.includes(1)} >S</ButtonDay>
                 <ButtonDay selected={h.days.includes(2)} >T</ButtonDay>
                 <ButtonDay selected={h.days.includes(3)} >Q</ButtonDay>

@@ -6,8 +6,18 @@ import HabitsContext from '../contexts/HabitsContext';
 export default function TodaysHabit({h}) {
     const {habits, setHabits} = useContext(HabitsContext);
 
-    function toggleConclusion() {
-        
+    function toggleConclusion(h) {
+        const array = habits.map(item => {
+
+            if(h.id === item.id) {
+                item.done = !item.done;
+                (!h.done) ? item.currentSequence = item.currentSequence - 1 
+                : item.currentSequence ++; 
+                if(item.currentSequence > item.highestSequence)  item.highestSequence ++;
+            }
+            return item;
+        })
+        setHabits(array);
     }
     return (
         <HabitBox>
@@ -16,7 +26,7 @@ export default function TodaysHabit({h}) {
                 <p>Sequência atual: {h.currentSequence} dias</p>
                 <p>Seu recorde: {h.highestSequence} dias</p>
             </DescriptionHabit>
-            <Check onClick={toggleConclusion} done = {h.done}>
+            <Check checked = {h.done} onClick={() => toggleConclusion(h)} done = {h.done}>
                 <AiOutlineCheck />
             </Check>
 
@@ -48,9 +58,10 @@ const Check = styled.div`
     height: 69px;
     border-radius: 5px;
     margin-right:10px;
+    background-color: ${props => props.checked ? '#8FC549' : '#EBEBEB'};
     
     svg {
-    background-color: #8FC549;
+    background-color: transparent;
     color: #fff;
     border-radius: 5px;
     width: 100%;
