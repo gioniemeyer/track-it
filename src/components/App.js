@@ -5,14 +5,16 @@ import Home from "./Home";
 import SubscribePage from './SubscribePage';
 import TodaysPage from './TodaysPage';
 import HabitsPage from './HabitsPage';
-import userContext from '../contexts/UserContext'
+import userContext from '../contexts/UserContext';
 import LoadContext from '../contexts/LoadContext';
 import HabitsContext from '../contexts/HabitsContext';
+import TodaysHabitContext from '../contexts/TodaysHabitContext';
 
 export default function App() {
   const [user, setUser] = useState('');
   const [load, setLoad] = useState(false);
   const [habits, setHabits] = useState([]);
+  const [today, setToday] = useState([]);
 
   return (
     <userContext.Provider value={{user, setUser}}>
@@ -26,12 +28,14 @@ export default function App() {
             <SubscribePage load={load} setLoad={setLoad} />
           </Route>
           <HabitsContext.Provider value={{habits, setHabits}}>
+          <TodaysHabitContext.Provider value={{today, setToday}}>
             <Route path='/hoje' exact>
               <TodaysPage />
             </Route>
             <Route path='/habitos'>
               <HabitsPage load={load} setLoad={setLoad} />
             </Route>
+            </TodaysHabitContext.Provider>
           </HabitsContext.Provider>
         </Switch>
         </BrowserRouter>

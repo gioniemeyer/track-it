@@ -9,13 +9,13 @@ import "dayjs/locale/pt-br";
 import { useHistory } from 'react-router';
 import Header from './Header';
 import Menu from './Menu';
-import HabitsContext from "../contexts/HabitsContext";
+import TodaysHabitContext from "../contexts/TodaysHabitContext";
 
 
 export default function TodaysPage() {
     let history = useHistory();
     const {user} = useContext(UserContext);
-    const {habits, setHabits} = useContext(HabitsContext);
+    const {today, setToday} = useContext(TodaysHabitContext);
 
     useEffect(() => {
         const config = {
@@ -24,9 +24,12 @@ export default function TodaysPage() {
             }
         }
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config);
-        promise.then(r => setHabits(r.data));
-        console.log(habits);
+        promise.then(r => setToday(r.data));
+        console.log(today);
     } ,[])
+
+    console.log(today);
+    
     return(
         <>
             <Header />
@@ -38,12 +41,11 @@ export default function TodaysPage() {
                 </ContentHeader>
                 <ContentBody>
                     {
-                        habits.length > 0 ?
-                        habits.map( h => <TodaysHabit h={h} />) :
+                        today.length > 0 ?
+                        today.map( h => <TodaysHabit h={h} />) :
                         <p>Nenhum hábito concluído ainda</p>
                     }
                 </ContentBody>
-
             </Content>
             <Menu history={history} />
         </>

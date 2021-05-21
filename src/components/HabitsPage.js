@@ -32,9 +32,9 @@ export default function HabitsPage({load, setLoad}) {
         promise.catch(error => console.log(error))
     }
 
-    useEffect( updateHabits, [] )
+    useEffect( updateHabits, [] );
 
-    return(
+    return (
         <>
             <Header />
             <Content>
@@ -45,7 +45,7 @@ export default function HabitsPage({load, setLoad}) {
                 <ContentBody>
                     {newHabit ? <CreateHabit updateHabits={updateHabits} name={name} setName={setName} setNewHabit={setNewHabit} days={days} setDays={setDays}/> : ''}
                     {
-                        habits ?
+                        habits !== [] ?
                         habits.map( h => <Habit h={h} />) :
                         <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
                     }
