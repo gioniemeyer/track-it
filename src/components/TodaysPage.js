@@ -16,6 +16,8 @@ export default function TodaysPage() {
     let history = useHistory();
     const {user} = useContext(UserContext);
     const {today, setToday} = useContext(TodaysHabitContext);
+    const todaysConcluded = today.filter( item => item.done )
+    const percentage = todaysConcluded.length / today.length * 100;
 
     useEffect(() => {
         const config = {
@@ -37,6 +39,7 @@ export default function TodaysPage() {
 
             <ContentHeader>
                 <h1> {dayjs().locale('pt-br').format('dddd')}, {dayjs().format(`DD`)}/{dayjs().format(`MM`)}</h1>
+                <P done={percentage !== 0}>{percentage > 0 ? `${percentage}% dos hábitos concluídos` : 'Nenhum hábito concluído ainda'}</P>
                 </ContentHeader>
                 <ContentBody>
                     {
@@ -64,16 +67,17 @@ const Content = styled.div`
         font-size: 23px;
         color: #126BA5;
     }
-    p {
-        margin: 5px 0 0 15px;
-        color: #bababa;
-    }
+`
+
+const P = styled.p`
+    margin-top: 4px;
+    color: ${props => props.done ? '#8FC549' : '#bababa'};
 `
 
 const ContentHeader = styled.div`
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 20px 15px;
 `
 

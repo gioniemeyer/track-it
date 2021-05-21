@@ -84,11 +84,6 @@ const HabitBox = styled.div`
     align-items: center;
     border-radius: 5px;
     margin-bottom: 10px;
-`
-
-
-const DescriptionHabit = styled.div`
-    margin-left: 10px;
     h1{
         color: #666666;
         font-size:20px;
@@ -97,6 +92,10 @@ const DescriptionHabit = styled.div`
         color: #666666;
         font-size: 12px;
     }
+`
+
+const DescriptionHabit = styled.div`
+    margin-left: 10px;
 `
 
 const Span = styled.span`
