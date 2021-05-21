@@ -22,17 +22,18 @@ export default function TodaysHabit({h}) {
                     }
                 } else {
                      item.currentSequence ++;
-                } 
+                }
+                
                 if(item.currentSequence > item.highestSequence) {
                     item.highestSequence ++;
                 }
             }
             return item;
         })
-        setToday(array);
-
-        (!h.done) ? sendToServerNegative(h) : sendToServerPositive(h);
         
+        setToday(array);
+        
+        (!h.done) ? sendToServerNegative(h) : sendToServerPositive(h);
     }
 
     function sendToServerPositive(h) {

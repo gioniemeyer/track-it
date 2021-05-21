@@ -9,6 +9,7 @@ import userContext from '../contexts/UserContext';
 import LoadContext from '../contexts/LoadContext';
 import HabitsContext from '../contexts/HabitsContext';
 import TodaysHabitContext from '../contexts/TodaysHabitContext';
+import HistoryPage from './HistoryPage';
 
 export default function App() {
   const [user, setUser] = useState('');
@@ -34,6 +35,9 @@ export default function App() {
             </Route>
             <Route path='/habitos'>
               <HabitsPage load={load} setLoad={setLoad} />
+            </Route>
+            <Route path='/historico'>
+              <HistoryPage />
             </Route>
             </TodaysHabitContext.Provider>
           </HabitsContext.Provider>
