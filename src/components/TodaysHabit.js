@@ -1,14 +1,16 @@
 import styled from "styled-components";
 import { AiOutlineCheck } from 'react-icons/ai';
 import {useContext} from 'react';
-import HabitsContext from '../contexts/HabitsContext';
+import TodaysHabitContext from '../contexts/TodaysHabitContext';
+import UserContext from '../contexts/UserContext';
+import axios from 'axios';
 
 export default function TodaysHabit({h}) {
-    const {habits, setHabits} = useContext(HabitsContext);
+    const {today, setToday} = useContext(TodaysHabitContext);
+    const {user} = useContext(UserContext);
 
     function toggleConclusion(h) {
-        const array = habits.map(item => {
-
+        const array = today.map(item => {
             if(h.id === item.id) {
                 item.done = !item.done;
                 (!h.done) ? item.currentSequence = item.currentSequence - 1 
@@ -17,8 +19,36 @@ export default function TodaysHabit({h}) {
             }
             return item;
         })
-        setHabits(array);
+        setToday(array);
+
+        (!h.done) ? sendToServerNegative(h) : sendToServerPositive(h);
+        
     }
+
+    function sendToServerPositive(h) {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+        const body = {};
+        const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${h.id}/check`, body, config);
+        promise.then(() => console.log('foi'));
+        promise.catch(() => console.log('não foi'));
+    }
+
+    function sendToServerNegative(h) {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+        const body = {};
+        const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${h.id}/uncheck`, body, config);
+        promise.then(() => console.log('foi'));
+        promise.catch(() => console.log('não foi'));
+    }
+
     return (
         <HabitBox>
             <DescriptionHabit key={h.id}>
