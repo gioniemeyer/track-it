@@ -28,8 +28,6 @@ export default function TodaysPage() {
         console.log(today);
     } ,[])
 
-
-    console.log(today);
     
     return(
         <>

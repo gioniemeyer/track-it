@@ -1,21 +1,25 @@
-import React from "react";
+import { useContext } from "react";
 import styled from 'styled-components';
 import {
     CircularProgressbar,
     buildStyles
   } from "react-circular-progressbar";
-  import "react-circular-progressbar/dist/styles.css";
-  
-export default function Menu({history}) {
-    const percentage = 66;
+ import "react-circular-progressbar/dist/styles.css";
+import TodaysHabitContext from '../contexts/TodaysHabitContext';
 
+ export default function Menu({history}) {
+   const {today} = useContext(TodaysHabitContext);
+
+    const todaysConcluded = today.filter( item => item.done )
+    const percentage = todaysConcluded.length / today.length * 100;
+ 
     return(
         <MenuDiv>
             <p onClick={() => {history.push('/habitos')}}>Hábitos</p>
             <Progress onClick={() => {history.push('/hoje')}}>
                 <CircularProgressbar
                     value={percentage}
-                    text={`${percentage}%`}
+                    text={'Hoje'}
                     background
                     backgroundPadding={6}
                     styles={buildStyles({
