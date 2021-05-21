@@ -1,10 +1,31 @@
 import styled from "styled-components";
+import Trash from "../images/Trash.png";
+import axios from 'axios';
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
-export default function Habit({h}) {
-console.log(h)
+export default function Habit({h, updateHabits}) {
+    console.log(h);
+    const {user} = useContext(UserContext);
+
+    function deleteHabit() {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+        const t = h.id; 
+        const request = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${h.id}`, config);
+        request.then(updateHabits);
+        request.catch(e => console.log(h));
+    }
+
     return (
         <Box>
-            <h1>{h.name}</h1>
+            <HeaderBox>
+                <h1>{h.name}</h1>
+                <img onClick={deleteHabit}src={Trash}></img>
+            </HeaderBox>
             <Days>
                 <ButtonDay selected={h.days.includes(0)} >D</ButtonDay>
                 <ButtonDay selected={h.days.includes(1)} >S</ButtonDay>
@@ -23,7 +44,7 @@ const Box = styled.div`
     flex-direction: column;
     justify-content: space-between;
     width: 340px;
-    height: 90px;
+    height: 100px;
     background-color: #fff;
     border: none;
     box-sizing: border-box;
@@ -31,12 +52,23 @@ const Box = styled.div`
     border-radius: 5px;
     margin-bottom: 10px;
 
+
+`
+
+const HeaderBox = styled.div `
+    display: flex;
+    justify-content: space-between;
     h1 {
         margin: 5px auto;
         width: 100%;
         height: 45px;
         border-radius: 5px;
         color: #000;
+    }
+
+    img {
+        width: 15px;
+        height: 15px;
     }
 `
 
@@ -52,14 +84,4 @@ const ButtonDay = styled.button`
 const Days = styled.div`
     display: flex;
     justify-content: flex-start;
-`
-const Save = styled.button`
-    padding: 7px 17px;
-    background-color: #52B6FF;
-    color: #fff;
-    border-radius: 5px;
-    border: none;
-    &:disabled {
-            opacity: 0.7;
-        }
 `

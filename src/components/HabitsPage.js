@@ -46,7 +46,7 @@ export default function HabitsPage({load, setLoad}) {
                     {newHabit ? <CreateHabit updateHabits={updateHabits} name={name} setName={setName} setNewHabit={setNewHabit} days={days} setDays={setDays}/> : ''}
                     {
                         habits !== [] ?
-                        habits.map( h => <Habit h={h} />) :
+                        habits.map( h => <Habit h={h} updateHabits={updateHabits} />) :
                         <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
                     }
                 </ContentBody>
